@@ -1,44 +1,47 @@
-import requests
+from selenium import webdriver
+from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 from bs4 import BeautifulSoup
+import time
 
-def scrape_g2(company_name):
-    """
-    Scrape reviews from G2 for the given company.
-    Returns a list of review dicts.
-    """
-    
-    reviews = []
-    base_url =f"https://www.g2.com/products/{company_name.lower().replace(' ', '-')}/reviews"
-    page = 1
-    
+def scrape_g2_reviews(company_slug):
+    options = Options()
+    options.add_argument("--headless")
+    driver = webdriver.Chrome(options=options)
+
+    url = f"https://www.g2.com/products/{company_slug}/reviews"
+    driver.get(url)
+
+    # Wait for reviews container
+    try:
+        WebDriverWait(driver, 10).until(
+            EC.presence_of_element_located((By.CSS_SELECTOR, "div[data-testid='review']"))
+        )
+    except:
+        print("Reviews not loaded")
+        driver.quit()
+        return []
+
+    # Scroll to load more reviews (repeat if needed)
+    last_height = driver.execute_script("return document.body.scrollHeight")
     while True:
-        url = f"{base_url}?page={page}"
-        response = requests.get(url)
-        if response.status_code != 200:
+        driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
+        time.sleep(2)
+        new_height = driver.execute_script("return document.body.scrollHeight")
+        if new_height == last_height:
             break
-        
-        soup = BeautifulSoup(response.text, "lxml")
-        review_divs = soup.find_all("div", class_="paper")
-        if not review_divs:
-            break
-        
-        for div in review_divs:
-            try:
-                title = div.find("h3").text.strip()
-                description = div.find("p").text.strip()
-                date = div.find("time")["datetime"]
-                rating = div.find("div", class_="rating")["aria-label"]
-                reviewer = div.find("span", class_="user-name").text.strip()
-                reviews.append({
-                    "title": title,
-                    "description":description,
-                    "date":date,
-                    "rating":rating,
-                    "reviewer":reviewer
-                })
-            except:
-                continue
-            
-        page += 1
-        
+        last_height = new_height
+
+    soup = BeautifulSoup(driver.page_source, "html.parser")
+    driver.quit()
+
+    reviews = []
+    for el in soup.select("div[data-testid='review']"):
+        text = el.select_one("p[data-testid='review-body']").get_text(strip=True) if el.select_one("p[data-testid='review-body']") else ""
+        rating = el.select_one("div[data-testid='star-rating']").get("aria-label") if el.select_one("div[data-testid='star-rating']") else ""
+        date = el.select_one("time").get("datetime") if el.select_one("time") else ""
+        reviews.append({"text": text, "rating": rating, "date": date})
+
     return reviews

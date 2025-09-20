@@ -1,11 +1,13 @@
 import argparse
 import json
-from src import g2_scraper, capterra_scraper, trustpilot_scraper
-from src.utils import filter_reviews_by_date
+import g2_scraper
+import capterra_scraper
+import trustpilot_scraper
+from utils import filter_reviews_by_date
 
 def main():
     parser = argparse.ArgumentParser(description="Scrape product reviews from SaaS review sites.")
-    parser.add_argument("--campany", type=str, required=True, help="Company name")
+    parser.add_argument("--company", type=str, required=True, help="Company name")
     parser.add_argument("--start_date", type=str, required=True, help="Start date YYYY-MM-DD")
     parser.add_argument("--end_date", type=str, required=True, help="End date YYYY-MM-DD")
     parser.add_argument("--source", type=str, required=True, choices=["g2", "capterra", "trustpilot"], help="Source to scrape: g2, capterra, or trustpilot")
@@ -18,7 +20,7 @@ def main():
     source = args.source
     
     if source == "g2":
-        reviews = g2_scraper.scrape_g2(company)
+        reviews = g2_scraper.scrape_g2_reviews(company)
     elif source == "capterra":
         reviews = capterra_scraper.scrape_capterra(company)
     elif source == "trustpilot":
