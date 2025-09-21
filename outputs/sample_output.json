@@ -1,0 +1,42 @@
+[
+  {
+    "title": "Excellent video conferencing solution",
+    "description": "Zoom has been our go-to video conferencing platform for over 2 years. The video quality is consistently excellent, even with large groups. The interface is intuitive and easy to use for both technical and non-technical users. We particularly love the breakout rooms feature for workshops and the recording capability for important meetings. The mobile app works seamlessly across all devices. Customer support has been responsive when we've needed help. Overall, Zoom has significantly improved our remote work capabilities.",
+    "date": "2023-03-15",
+    "rating": "5",
+    "reviewer": "Sarah Johnson",
+    "source": "G2"
+  },
+  {
+    "title": "Reliable and feature-rich platform",
+    "description": "We've been using Zoom for our daily standups and client meetings. The platform is very reliable with minimal connection issues. The screen sharing feature works perfectly, and we love the virtual background options. The integration with our calendar system is seamless. The only minor issue is that sometimes the audio quality can be inconsistent, but overall it's a great product that we'd recommend to other teams.",
+    "date": "2023-02-28",
+    "rating": "4",
+    "reviewer": "Mike Chen",
+    "source": "G2"
+  },
+  {
+    "title": "Great for remote teams",
+    "description": "Zoom has been essential for our distributed team. The video quality is excellent and the platform is very stable. We use it for everything from daily check-ins to large company all-hands meetings. The breakout rooms feature is particularly useful for team building activities. The mobile app is also very well designed and works great on the go. Highly recommend for any organization that needs reliable video conferencing.",
+    "date": "2023-01-20",
+    "rating": "5",
+    "reviewer": "Emily Rodriguez",
+    "source": "Capterra"
+  },
+  {
+    "title": "Solid video conferencing tool",
+    "description": "Zoom provides a solid video conferencing experience. The interface is clean and easy to navigate. We've had good experiences with the platform for both internal meetings and client calls. The recording feature is particularly useful for training sessions. The only downside is that the free version has time limitations, but the paid plans are reasonably priced for the features you get.",
+    "date": "2023-03-10",
+    "rating": "4",
+    "reviewer": "David Kim",
+    "source": "Trustpilot"
+  },
+  {
+    "title": "Perfect for our business needs",
+    "description": "We switched to Zoom from another platform and couldn't be happier. The video and audio quality are consistently good, and the platform is very reliable. We use it for client meetings, team collaboration, and even virtual events. The webinar features are particularly impressive. The customer support team is also very helpful and responsive. Overall, Zoom has exceeded our expectations and we plan to continue using it long-term.",
+    "date": "2023-02-15",
+    "rating": "5",
+    "reviewer": "Lisa Wang",
+    "source": "G2"
+  }
+]
